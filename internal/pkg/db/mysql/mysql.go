@@ -4,16 +4,15 @@ import (
 	"database/sql"
 	"log"
 
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/golang-migrate/migrate"
 	"github.com/golang-migrate/migrate/database/mysql"
-	_ "github.com/golang-migrate/migrate/source/file"
 )
 
+//Db MySql Database session variable
 var Db *sql.DB
 
+//InitDB initalises database session
 func InitDB() {
-	// Use root:dbpass@tcp(172.17.0.2)/hackernews, if you're using Windows.
 	db, err := sql.Open("mysql", "root:root@tcp(localhost)/graphql_demo")
 	if err != nil {
 		log.Panic(err)
@@ -26,6 +25,7 @@ func InitDB() {
 	log.Println("Connection was sucessfull!!")
 }
 
+//Migrate creates/updates table
 func Migrate() {
 	if err := Db.Ping(); err != nil {
 		log.Fatal(err)
